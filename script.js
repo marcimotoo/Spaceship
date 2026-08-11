@@ -8,6 +8,7 @@ function showStatus () {
     console.log(shipName, "Health " + shipHealth, shipInventory, "Credits " + shipCredits );
 }
 
+
 function buyRepairKit() {
     if  (shipCredits > 200) {
         shipCredits = shipCredits - 200;
@@ -20,8 +21,22 @@ function buyRepairKit() {
     }    
 }
 
-function useRepairKit(params) {
-    
+function shipDamage() {
+    shipHealth.remove = -20;
 }
+
+function useRepairKit() {
+    shipHealth = shipHealth + 25;
+    if (shipHealth >= 100) {
+        shipHealth = 100;
+        shipInventory.pop("Reapair Kit");
+    } 
+    console.log("Ship repaired = " + "shiphall " + shipHealth );
+}
+
 showStatus();
+shipDamage();
 buyRepairKit();
+showStatus();
+useRepairKit();
+showStatus();
