@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+.d_flex {
+  display: flex;
+}
+
+.d_flex_center {
+  display: flex;
+  justify-content: center;
+}
+
+.d_column {
+  display: flex;
+  flex-direction: column;
+}
+
+.d_column_center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.m_auto {
+  margin: 0 auto;
+}
+
+body {
+  background-color: black;
+  color: white;
+  text-align: left;
+}
+
+h1 {
+  text-align: center;
+}
+
+.card {
+  height: auto;
+  width: 100%;
+}
+
+.table {
+  background: green;
+
+  height: auto;
+  width: 300px;
+
+  padding: 10px;
+}
