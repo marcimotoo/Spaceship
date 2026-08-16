@@ -6,13 +6,33 @@
     <title>Spaceship</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
-    <section class="card d_column_center">
-      <h1>Spaceship</h1>
-      <div id="status_table"></div>
-    </section>
+  <body onload="renderStatus()">
+    <section id="gameover" class="landing-section d_column_center">
+      <article class="card d_column_center">
+        <h1>Spaceship Adventure</h1>
+        <div id="status_table"></div>
 
-    <button id="buttons" onclick="">Buy Repair Kit</button>
+        <section class="input_button-section d_column_center">
+        
+          <div class="input_field_one">
+            <input class="input_design" type="number" id="damage_input" placeholder="number" />
+            <button class="input_button_design" id="button" onclick="takingDamage()">Take Damage</button>
+          </div>
+          <div class="input_field_one">
+            <input class="input_design" type="number" id="kit_input" placeholder="amount" />
+            <button class="input_button_design" id="button" onclick="buyRepairKit()">Buy Repair Kit | 250$</button>
+          </div>
+            <div class="input_field_two">
+              <button class="input_button_design" id="button" onclick="buyShield()">Buy Shield | 500$</button>
+            </div>
+            <div class="input_field_two">
+              <button class="input_button_design" id="button" onclick="useRepairKit()">Use Repair Kit</button>
+            </div>
+          </section>
+          <section id="error"></section>
+        </section>
+      </article>
+    </section>
   </body>
   <script src="./script.js"></script>
 </html>
