@@ -1,61 +1,119 @@
-const shipName = "Starfall";
 let shipHealth = 100;
-let repairKits = 2;
+let shipCargo = ["Repair Kit"];
+const shipName = "Starfall";
 let shipCredits = 1000;
 
-document.getElementById("status_table").innerHTML = `
-        <table>
-            <tr>
-                <th>Name</th>
-                <td>${shipName}</td>
-           </tr>
-            <tr>
-                <th>Leben</th>
-                <td>${shipHealth}</td>
-           </tr>
-            <tr>
-                <th>Repair Kits</th>
-                <td>${repairKits}</td>
-           </tr>
-            <tr>
-                <th>Credits</th>
-                <td>${shipCredits}</td>
-            </tr>
-         </table>`;
+function renderStatus() {
+  document.getElementById("status_table").innerHTML = `
+  <table class="table_design">
+  <tr>
+  <th>Name</th>
+  <td>${shipName}</td>
+  </tr>
+  <tr>
+  <th>Leben</th>
+  <td>${shipHealth}</td>
+  </tr>
+  <tr>
+  <th>Ship Cargo</th>
+  <td>${shipCargo}</td>
+  </tr>
+  <tr>
+  <th>Credits</th>
+  <td>${shipCredits}</td>
+  </tr>
+  </table>`;
 
-document.getElementById("status_table").classList.toggle("table");
-document.getElementById("status_table").classList.toggle("m_auto");
+  document.getElementById("status_table").classList.add("table");
+  document.getElementById("status_table").classList.toggle("m_auto");
+}
+
+function showMessage(text) {
+  document.getElementById("error").innerHTML = "<p>" + text + "</p>";
+}
+
+function takingDamage() {
+  let damage = Number(document.getElementById("damage_input").value);
+  if (shipHealth > 0) {
+    if (shipHealth <= 0) {
+      shipHealth = shipHealth = 0;
+    }
+    if (shipCargo.includes("Shield")) {
+      damage = damage * 0.5;
+    }
+    shipHealth = shipHealth - damage; // schadenshöhe mit input verlinken
+    showMessage("!ALARM! you taking damage!!");
+    renderStatus();
+  }
+  if (shipHealth <= 0) {
+    document.getElementById("gameover").innerHTML = "<h2>Game Over</h2>";
+    document.getElementById("gameover").classList.toggle("alarm-red");
+  }
+}
+
+function takingDamage25() {
+  shipHealth = shipHealth - 25;
+  renderStatus();
+}
+
+function takingDamage50() {
+  shipHealth = shipHealth - 50;
+  renderStatus();
+}
+
+function takingDamage100() {
+  shipHealth = shipHealth - 100;
+  renderStatus();
+}
+
+function buyShield() {
+  if (shipCredits >= 500 && !shipCargo.includes("Shield")) {
+    shipCredits = shipCredits - 500;
+    shipCargo.push("Shield");
+    showMessage("Shield added to your Inventory");
+    renderStatus();
+  } else if (shipCargo.includes("Shield")) {
+    showMessage("Shield already installed");
+  } else {
+    showMessage("Not enouth $ Credits");
+  }
+}
+
+// function useShield() {
+//   if (shipCargo.includes("Shield")) {
+//     shipCargo.splice(shipCargo.indexOf("Shield"), 1);
+//     renderStatus();
+//     console.log(true);
+//   } else {
+//     console.log(false);
+//   }
+// }
 
 function buyRepairKit() {
-  if (shipCredits > 200) {
-    shipCredits = shipCredits - 900;
-    repairKits = repairKits + 1;
-    console.log("Repair Kit added to your Inventory! " + shipCredits + "$ Credits left");
-    // getStatus();
+  let repairKitNumber = Number(document.getElementById("kit_input").value);
+  if (shipCredits >= repairKitNumber * 250) {
+    for (let index = 0; index < repairKitNumber; index++) {
+      shipCargo.push("Repair Kit");
+    }
+    shipCredits = shipCredits - repairKitNumber * 250;
+
+    renderStatus();
+    showMessage("repair kit added to your inventory");
   } else {
-    shipCredits < 200;
-    console.log("Not enouth $ Credits");
+    showMessage("Not enouth $ Credits");
   }
 }
-
-function shipDamage() {
-  if (shipHealth >= 1) {
-    shipHealth = shipHealth - 25;
-    if (shipHealth > 0) {
-      console.log("Ship is taking damage!! " + shipHealth + "%");
-    }
-    if (shipHealth <= 0) {
-      console.log("You Died!");
-    }
-  }
-}
-
 function useRepairKit() {
-  if ((shipHealth <= 100, repairKits >= 1)) {
-    repairKits = repairKits - 1;
+  if (shipHealth > 0 && shipHealth < 100 && shipCargo.includes("Repair Kit")) {
+    shipCargo.splice(shipCargo.indexOf("Repair Kit"), 1);
     shipHealth = shipHealth + 25;
-    console.log("Ship repaired! Shiphall = " + shipHealth + "%");
+    showMessage("ship repaired!");
+    renderStatus();
+    if (shipHealth >= 100) {
+      shipHealth = shipHealth = 100;
+      renderStatus();
+    }
   } else {
-    console.log("No Repair Kits left");
+    showMessage("no repair kits left!");
   }
 }
