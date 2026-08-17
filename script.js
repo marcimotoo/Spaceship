@@ -29,7 +29,7 @@ function renderStatus() {
 }
 
 function showMessage(text) {
-  document.getElementById("error").innerHTML = "<p>" + text + "</p>";
+  document.getElementById("error").innerHTML = text;
 }
 
 function takingDamage() {
@@ -41,9 +41,15 @@ function takingDamage() {
     if (shipCargo.includes("Shield")) {
       damage = damage * 0.5;
     }
+    if (damage <= 0) {
+      showMessage("haha");
+    }
     shipHealth = shipHealth - damage; // schadenshöhe mit input verlinken
     showMessage("!ALARM! you taking damage!!");
     renderStatus();
+  }
+  if (damage <= 0) {
+    showMessage("type in damage input");
   }
   if (shipHealth <= 0) {
     document.getElementById("gameover").innerHTML = "<h2>Game Over</h2>";
@@ -79,16 +85,6 @@ function buyShield() {
   }
 }
 
-// function useShield() {
-//   if (shipCargo.includes("Shield")) {
-//     shipCargo.splice(shipCargo.indexOf("Shield"), 1);
-//     renderStatus();
-//     console.log(true);
-//   } else {
-//     console.log(false);
-//   }
-// }
-
 function buyRepairKit() {
   let repairKitNumber = Number(document.getElementById("kit_input").value);
   if (shipCredits >= repairKitNumber * 250) {
@@ -99,6 +95,9 @@ function buyRepairKit() {
 
     renderStatus();
     showMessage("repair kit added to your inventory");
+    if (repairKitNumber <= 0) {
+      showMessage("Type in amount of Repair Kits");
+    }
   } else {
     showMessage("Not enouth $ Credits");
   }

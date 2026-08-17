@@ -38,18 +38,30 @@ h1 {
   font-family: monospace;
 }
 p {
-  color: black;
-  background-color: #f3f3f2c6;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
+.error-massage-box {
+  color: white;
+  background-color: rgba(6, 6, 6, 0.687);
+  box-shadow: 0px 0px 10px 2px rgba(5, 6, 6, 0.9);
+
+  height: 50px;
+  width: 100%;
   padding: 10px 20px;
   border-radius: 10px;
+
   font-size: 20px;
   font-family: sans-serif;
   font: 700;
+  text-align: center;
+  transition: all 1s;
 }
 
 .card {
   height: auto;
-  width: 500px;
+  width: 650px;
   padding: 30px;
   gap: 30px;
 
