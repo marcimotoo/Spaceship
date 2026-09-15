@@ -4,37 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spaceship</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./styles/components.css" />
+    <link rel="stylesheet" href="./styles/variables.css" />
+    <link rel="stylesheet" href="./styles/fonts.css" />
+    <link rel="stylesheet" href="./styles/reset.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <script src="./script/script.js" defer></script>
+    <script src="./script/hud.js" defer></script>
+    <script src="./script/game.js" defer></script>
   </head>
-  <body onload="renderStatus()">
-    <section id="gameover" class="landing-section d_column_center">
-      <article class="card d_column_center">
-        <h1>Spaceship Adventure</h1>
-        <div id="status_table"></div>
+  <body onload="(openDialog(), renderStatus())">
+    <main class="landing-section">
+      <section id="gameover" class="play_section">
+        <article class="play_button">
+          <h1>Spaceship Adventure</h1>
+          <p>Try it Out!</p>
+          <button class="input_button_design" onclick="(openDialog(), renderStatus())">Play!</button>
+        </article>
+      </section>
 
-        <section class="input_button-section d_column_center">
-        
-          <div class="error-massage-box">
-            <p id="error">Try it Out!</p>
-          </div>
-          <div class="input_field_one">
-            <input class="input_design" type="number" id="damage_input" placeholder="number" />
-            <button class="input_button_design" id="button" onclick="takingDamage()">Take Damage</button>
-          </div>
-          <div class="input_field_one">
-            <input class="input_design" type="number" id="kit_input" placeholder="amount" />
-            <button class="input_button_design" id="button" onclick="buyRepairKit()">Buy Repair Kit | 250$</button>
-          </div>
-            <div class="input_field_two">
-              <button class="input_button_design" id="button" onclick="buyShield()">Buy Shield | 500$</button>
-            </div>
-            <div class="input_field_two">
-              <button class="input_button_design" id="button" onclick="useRepairKit()">Use Repair Kit</button>
-            </div>
-          </section>
-        </section>
-      </article>
-    </section>
+      <dialog closedby="any" id="dialog">
+        <div class="input_field">
+          <input class="input_design" type="number" id="damage_input" placeholder="number" />
+          <button class="input_button_design" id="button" onclick="takingDamage()">Take Damage</button>
+          <button class="input_button_design" id="button" onclick="buyShield()">Buy Shield | 500$</button>
+        </div>
+        <div class="input_field">
+          <input class="input_design" type="number" id="kit_input" placeholder="amount" />
+          <button class="input_button_design" id="button" onclick="useRepairKit()">Use Repair Kit</button>
+          <button class="input_button_design" id="button" onclick="buyRepairKit()">Buy Repair Kit | 250$</button>
+        </div>
+        <div id="space_game">
+          <div id="status_table"></div>
+        </div>
+        <div class="error-massage-box">
+          <p id="error">!</p>
+        </div>
+      </dialog>
+    </main>
   </body>
-  <script src="./script.js"></script>
 </html>

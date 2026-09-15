@@ -1,0 +1,17 @@
+button:hover {
+  cursor: pointer;
+}
+
+dialog {
+  background: var(--second-background-color);
+  margin: auto auto;
+
+  width: 1000px;
+  padding: 30px;
+
+  border: 1px solid white;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 18px 10px rgba(0, 255, 153, 0.9);
+  -moz-box-shadow: 0px 0px 18px 10px rgba(0, 255, 153, 0.9);
+  box-shadow: 0px 0px 18px 10px rgba(0, 255, 153, 0.9);
+}

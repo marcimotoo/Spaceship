@@ -1,31 +1,38 @@
-let shipHealth = 100;
-let shipCargo = ["Repair Kit"];
+const statusTable = document.getElementById("status_table");
+
 const shipName = "Starfall";
+let shipHealth = 100;
 let shipCredits = 1000;
-
+let shipCargo = [
+  {
+    kit: "Repair Kit",
+    shield: "Shield",
+  },
+];
+function tableTemplate() {
+  return /*html*/ `<table>
+              <tr>
+                <th>Name</th>
+                <td>${shipName}</td>
+              </tr>
+              <tr>
+                <th>life</th>
+                <td>${shipHealth}</td>
+              </tr>
+              <tr>
+                <th>Credits</th>
+                <td>${shipCredits}</td>
+              </tr>
+              <tr>
+                <th>Ship Cargo</th>
+                <td>${shipCargo.kit}${shipCargo.shield}</td>
+              </tr>
+            </table>
+    
+  `;
+}
 function renderStatus() {
-  document.getElementById("status_table").innerHTML = `
-  <table class="table_design">
-  <tr>
-  <th>Name</th>
-  <td>${shipName}</td>
-  </tr>
-  <tr>
-  <th>Leben</th>
-  <td>${shipHealth}</td>
-  </tr>
-  <tr>
-  <th>Ship Cargo</th>
-  <td>${shipCargo}</td>
-  </tr>
-  <tr>
-  <th>Credits</th>
-  <td>${shipCredits}</td>
-  </tr>
-  </table>`;
-
-  document.getElementById("status_table").classList.add("table");
-  document.getElementById("status_table").classList.toggle("m_auto");
+  statusTable.innerHTML = tableTemplate();
 }
 
 function showMessage(text) {
@@ -38,7 +45,7 @@ function takingDamage() {
     if (shipHealth <= 0) {
       shipHealth = shipHealth = 0;
     }
-    if (shipCargo.includes("Shield")) {
+    if (shipCargo.shield.includes("Shield")) {
       damage = damage * 0.5;
     }
     if (damage <= 0) {
@@ -73,12 +80,12 @@ function takingDamage100() {
 }
 
 function buyShield() {
-  if (shipCredits >= 500 && !shipCargo.includes("Shield")) {
+  if (shipCredits >= 500 && !shipCargo.shield.includes("Shield")) {
     shipCredits = shipCredits - 500;
-    shipCargo.push("Shield");
+    shipCargo.shield.push("Shield");
     showMessage("Shield added to your Inventory");
     renderStatus();
-  } else if (shipCargo.includes("Shield")) {
+  } else if (shipCargo.shield.includes("Shield")) {
     showMessage("Shield already installed");
   } else {
     showMessage("Not enouth $ Credits");
@@ -89,7 +96,7 @@ function buyRepairKit() {
   let repairKitNumber = Number(document.getElementById("kit_input").value);
   if (shipCredits >= repairKitNumber * 250) {
     for (let index = 0; index < repairKitNumber; index++) {
-      shipCargo.push("Repair Kit");
+      shipCargo.kit.push("Repair Kit");
     }
     shipCredits = shipCredits - repairKitNumber * 250;
 
@@ -103,8 +110,8 @@ function buyRepairKit() {
   }
 }
 function useRepairKit() {
-  if (shipHealth > 0 && shipHealth < 100 && shipCargo.includes("Repair Kit")) {
-    shipCargo.splice(shipCargo.indexOf("Repair Kit"), 1);
+  if (shipHealth > 0 && shipHealth < 100 && shipCargo.kit.includes("Repair Kit")) {
+    shipCargo.kit.splice(shipCargo.kit.indexOf("Repair Kit"), 1);
     shipHealth = shipHealth + 25;
     showMessage("ship repaired!");
     renderStatus();
